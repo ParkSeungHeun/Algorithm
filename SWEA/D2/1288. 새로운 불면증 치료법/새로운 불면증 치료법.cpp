@@ -1,11 +1,10 @@
 #include <iostream>
 #include <algorithm>
+#include <math.h>
 #include <vector>
-#include <queue>
+#include <string>
 
 using namespace std;
-
-void Solution(bool DAT[], int* idx, int N);
 
 int main()
 {
@@ -15,41 +14,28 @@ int main()
 
 	int T;
 	cin >> T;
+	int total = (1 << 10) - 1;  // 모든 숫자가 등장했을 때의 값
 
 	for (int test_case = 1; test_case <= T; test_case++)
 	{
-		int N;
-		cin >> N;
+        int N;
+        cin >> N;
 
-		bool DAT[10] = { false };
-		int idx = 1;
-		Solution(DAT, &idx, N);
-		cout << "#" << test_case << " " << idx * N << '\n';
+        int visited = 0;
+        int count = 0;
+        while (true) {
+            string strNum = to_string(N * (++count));  // N*count 값을 문자열로 표현한 것  (예: 5 * 13 = 65 -> "65")
+
+            for (char c : strNum) {
+                int num = c - '0';
+                visited |= (1 << num);  // 각 숫자에 대해 등장했다는 의미로 bit 를 1로 변경
+            }
+
+            if (visited == total)  // 모든 숫자가 등장했다면, 종료
+                break;
+        }
+
+        cout << "#" << test_case << " " << N * count << endl;
 	}
 	return 0;
 }
-
-void Solution(bool DAT[], int* idx, int N)
-{
-
-	int num = N * (*idx);
-	while (num > 0) {
-		DAT[num % 10] = true;
-		num /= 10;
-	}
-
-	bool flag = true;
-	for (int i = 0; i < 10; i++) {
-		if (!DAT[i]) {
-			flag = false;
-			break;
-		}
-	}
-
-	if (!flag) {
-		(*idx)++;
-		Solution(DAT, idx, N);
-	}
-}
-
-
