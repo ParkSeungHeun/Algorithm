@@ -53,6 +53,8 @@ int BinarySearch(vector<int>& tree, int min, int max, int M)
         mid = (start + end) / 2;
 
         // cul = 잘린 나무의 총 길이
+        // 나무의 총 길이기 21억을 넘어갈 수 있다 !!
+        // 그래서 자료형을 longlong으로 해야 한다.
         long long cul = Culculator(tree, mid);
 
         if (cul == M) {
