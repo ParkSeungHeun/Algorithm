@@ -45,7 +45,12 @@ void Union(int arr[], int num1, int num2)
         return;
     }
     else {
-        arr[p2] = p1;
+        if (p1 < p2) {
+            arr[p2] = p1;
+        }
+        else {
+            arr[p1] = p2;
+        }
     }
 }
 
